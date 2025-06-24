@@ -17,6 +17,7 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".", // 👈 Needed for alias to work
     "paths": {
       "@/*": ["./src/*"]
     }
