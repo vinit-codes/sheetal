@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@wix/ecom": "^1.0.1209",
+    "@wix/ecom": "^1.0.1281",
     "@wix/members": "^1.0.299",
     "@wix/sdk": "^1.15.23",
     "@wix/stores": "^1.0.474",
@@ -17,13 +17,15 @@
     "js-cookie": "^3.0.5",
     "next": "14.2.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-google-recaptcha": "^3.1.0",
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "postcss": "^8",
