@@ -16,17 +16,19 @@ type CartState = {
   removeItem: (wixClient: WixClient, itemId: string) => void;
 };
 
+
 export const useCartStore = create<CartState>((set) => ({
   cart: [],
   isLoading: true,
   counter: 0,
-  getCart: async (wixClient) => {
+  getCart: async (wixClient) => { //Hooks can only be called inside React function components or custom hooks.
+    // We use wixClient as a parameter so that any component can fetch it using useWixClient() and then pass it into Zustand functions.
     try {
       const cart = await wixClient.currentCart.getCurrentCart();
       set({
         cart: cart || [],
         isLoading: false,
-        counter: cart?.lineItems.length || 0,
+        counter: cart?.lineItems?.length || 0,
       });
     } catch (err) {
       set((prev) => ({ ...prev, isLoading: false }));
@@ -49,7 +51,7 @@ export const useCartStore = create<CartState>((set) => ({
 
     set({
       cart: response.cart,
-      counter: response.cart?.lineItems.length,
+      counter: response.cart?.lineItems?.length,
       isLoading: false,
     });
   },
@@ -61,7 +63,7 @@ export const useCartStore = create<CartState>((set) => ({
 
     set({
       cart: response.cart,
-      counter: response.cart?.lineItems.length,
+      counter: response.cart?.lineItems?.length,
       isLoading: false,
     });
   },

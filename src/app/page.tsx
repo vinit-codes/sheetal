@@ -1,7 +1,7 @@
-import CategoryList from "./components/CategoryList";
-import ProductList from "./components/ProductList";
-import Slider from "./components/Slider";
-import Skeleton from "./components/Skeleton";
+import CategoryList from "../components/CategoryList";
+import ProductList from "../components/ProductList";
+import Slider from "../components/Slider";
+import Skeleton from "../components/Skeleton";
 import { WixClientContext } from "@/context/wixContext";
 import { useWixClient } from "@/hooks/useWixClient";
 import { wixClientServer } from "@/lib/wixClientServer";

@@ -1,9 +1,9 @@
 import { wixClientServer } from "@/lib/wixClientServer";
 import Image from "next/image";
-import Filter from "../components/Filter";
-import ProductList from "../components/ProductList";
+import Filter from "../../components/Filter";
+import ProductList from "../../components/ProductList";
 import { Suspense } from "react";
-import Skeleton from "../components/Skeleton";
+import Skeleton from "../../components/Skeleton";
 const ListPage = async ({ searchParams }: { searchParams: any }) => {
   const wixClient = await wixClientServer();
 
