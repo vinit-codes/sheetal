@@ -6,6 +6,7 @@ import DOMPurify from "isomorphic-dompurify";
 import Pagination from "./Pagination";
 
 const PRODUCT_PER_PAGE = 8;
+
 const ProductList = async ({
   categoryId,
   limit,
@@ -33,7 +34,6 @@ const ProductList = async ({
         ? parseInt(searchParams.page) * (limit || PRODUCT_PER_PAGE)
         : 0
     );
-
   // .find();
 
   if (searchParams?.sort) {
@@ -46,7 +46,6 @@ const ProductList = async ({
       productQuery.descending(sortBy);
     }
   }
-  console.log("Sorting products by:", searchParams?.sort);
 
   const res = await productQuery.find();
 
