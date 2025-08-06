@@ -1,24 +1,20 @@
 "use client";
+
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import Confetti from "react-confetti";
 
-const SuccessPage = () => {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const orderId = searchParams.get("orderId");
 
   useEffect(() => {
     if (!orderId) return;
-
     const timer = setTimeout(() => {
       router.push("/orders/" + orderId);
     }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [orderId, router]);
 
   return (
@@ -28,9 +24,17 @@ const SuccessPage = () => {
       <h2 className="text-xl font-medium">
         We sent the invoice to your e-mail
       </h2>
-      <h3 className="">You are being redirected to the order page...</h3>
+      <p>You will be redirected to the order details page in 5 seconds...</p>
     </div>
   );
-};
+}
 
-export default SuccessPage;
+function Page() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-[calc(100vh-180px)]">Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
+  );
+}
+
+export default Page;

@@ -4,22 +4,24 @@ import { wixClientServer } from "@/lib/wixClientServer";
 import { members } from "@wix/members";
 import Link from "next/link";
 import { format } from "timeago.js";
+import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 const ProfilePage = async () => {
   const wixClient = await wixClientServer();
 
-  const user = await wixClient.members.getCurrentMember({
-    fieldsets: [members.Set.FULL],
-  });
+  try {
+    const user = await wixClient.members.getCurrentMember({
+      fieldsets: [members.Set.FULL],
+    });
 
-  if (!user.member?.contactId) {
-    return <div className="">Not logged in!</div>;
-  }
+    if (!user.member?.contactId) {
+      redirect("/login");
+    }
 
   const orderRes = await wixClient.orders.searchOrders({
-    search: {
-      filter: { "buyerInfo.contactId": { $eq: user.member?.contactId } },
-    },
+    filter: { "buyerInfo.contactId": { $eq: user.member?.contactId } }
   });
 
   return (
@@ -73,7 +75,7 @@ const ProfilePage = async () => {
       <div className="w-full md:w-1/2">
         <h1 className="text-2xl">Orders</h1>
         <div className="mt-12 flex flex-col">
-          {orderRes.orders.map((order) => (
+          {orderRes.orders?.map((order) => (
             <Link
               href={`/orders/${order._id}`}
               key={order._id}
@@ -93,6 +95,9 @@ const ProfilePage = async () => {
       </div>
     </div>
   );
+  } catch (error) {
+    redirect("/login");
+  }
 };
 
 export default ProfilePage;
