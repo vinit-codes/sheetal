@@ -53,6 +53,12 @@ const Menu = () => {
           <Link href="/profile" onClick={() => setOpen(false)}>
             Profile
           </Link>
+           <Link href="/about" onClick={() => setOpen(false)}>
+            About
+          </Link>
+           <Link href="/contact" onClick={() => setOpen(false)}>
+            Contact
+          </Link>
 
           <button className="relative" onClick={handleCartClick}>
             <span>Cart</span>
