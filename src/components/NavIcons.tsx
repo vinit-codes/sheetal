@@ -98,7 +98,8 @@ const NavIcons = () => {
           {counter}
         </div>
       </div>
-      {isCartOpen && <CartModal />}
+      {isCartOpen && <CartModal closeCart={() => setIsCartOpen(false)} />}
+
     </div>
   );
 };

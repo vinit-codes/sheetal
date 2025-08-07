@@ -6,10 +6,11 @@ import { media as wixMedia } from "@wix/sdk";
 import { useWixClient } from "@/hooks/useWixClient";
 import { currentCart } from "@wix/ecom";
 
-const CartModal = () => {
-  // TEMPORARY
-  // const cartItems = true;
+interface CartModalProps {
+  closeCart: () => void;
+}
 
+const CartModal = ({ closeCart }: CartModalProps) => {
   const wixClient = useWixClient();
   const { cart, isLoading, removeItem } = useCartStore();
 
@@ -44,9 +45,8 @@ const CartModal = () => {
       ) : (
         <>
           <h2 className="text-xl">Shopping Cart</h2>
-          {/* LIST */}
+
           <div className="flex flex-col gap-8">
-            {/* ITEM */}
             {cart.lineItems.map((item) => (
               <div className="flex gap-4" key={item._id}>
                 {item.image && (
@@ -64,9 +64,7 @@ const CartModal = () => {
                   />
                 )}
                 <div className="flex flex-col justify-between w-full">
-                  {/* TOP */}
-                  <div className="">
-                    {/* TITLE */}
+                  <div>
                     <div className="flex items-center justify-between gap-8">
                       <h3 className="font-semibold">
                         {item.productName?.original}
@@ -80,12 +78,10 @@ const CartModal = () => {
                         ${item.price?.amount}
                       </div>
                     </div>
-                    {/* DESC */}
                     <div className="text-sm text-gray-500">
                       {item.availability?.status}
                     </div>
                   </div>
-                  {/* BOTTOM */}
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Qty. {item.quantity}</span>
                     <span
@@ -100,18 +96,30 @@ const CartModal = () => {
               </div>
             ))}
           </div>
-          {/* BOTTOM */}
-          <div className="">
+
+          <div>
             <div className="flex items-center justify-between font-semibold">
-              <span className="">Subtotal</span>
-              <span className="">${cart?.lineItems?.reduce((total, item) => total + (Number(item.price?.amount) || 0) * (Number(item.quantity) || 1), 0) || 0}</span>
+              <span>Subtotal</span>
+              <span>
+                $
+                {cart?.lineItems?.reduce(
+                  (total, item) =>
+                    total +
+                    (Number(item.price?.amount) || 0) *
+                      (Number(item.quantity) || 1),
+                  0
+                ) || 0}
+              </span>
             </div>
             <p className="text-gray-500 text-sm mt-2 mb-4">
               Shipping and taxes calculated at checkout.
             </p>
             <div className="flex justify-between text-sm">
-              <button className="rounded-md py-3 px-4 ring-1 ring-gray-300">
-                View Cart
+              <button
+                className="rounded-md py-3 px-4 ring-1 ring-gray-300"
+                onClick={closeCart}
+              >
+                Close Cart
               </button>
               <button
                 className="rounded-md py-3 px-4 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
